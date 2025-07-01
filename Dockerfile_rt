@@ -1,0 +1,5 @@
+FROM nvcr.io/nvidia/tritonserver:25.02-trtllm-python-py3
+
+WORKDIR /app
+
+COPY ./model_repository /models

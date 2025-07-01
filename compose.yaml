@@ -1,0 +1,35 @@
+services:
+  triton:    
+    runtime: nvidia
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    shm_size: "64gb"
+    ports:
+      - "127.0.0.1:8900:8080"
+      - "127.0.0.1:8901:8001"
+      - "127.0.0.1:8902:8002"
+    volumes:
+      - "./:/workspace"
+      - "./model_repository:/models"
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["all"]
+              capabilities: [gpu]
+    command: tritonserver --model-repository=/models --http-thread-count 8 --log-verbose 0 --log-error 1 --log-info 1
+
+  tensorrt:
+    image: nvcr.io/nvidia/tensorrt:23.12-py3
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./sources:/models
+    runtime: nvidia
+
