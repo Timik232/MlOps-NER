@@ -1,5 +1,5 @@
 services:
-  triton:    
+  triton:
     runtime: nvidia
     build:
       context: .
@@ -7,7 +7,7 @@ services:
       network: host
     shm_size: "64gb"
     ports:
-      - "127.0.0.1:8900:8080"
+      - "127.0.0.1:8900:8000"
       - "127.0.0.1:8901:8001"
       - "127.0.0.1:8902:8002"
     volumes:
@@ -32,4 +32,3 @@ services:
     volumes:
       - ./sources:/models
     runtime: nvidia
-
