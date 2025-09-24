@@ -189,3 +189,5 @@ model_repository/frida_encoder/1/
 triton/
 
 sources/
+
+unused model/
