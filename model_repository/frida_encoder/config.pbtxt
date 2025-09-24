@@ -1,0 +1,42 @@
+name: "frida_encoder"
+platform: "onnxruntime_onnx"
+max_batch_size: 128
+
+default_model_filename: "model.onnx"
+
+input [
+  { name: "input_ids"      data_type: TYPE_INT64 dims: [ -1 ] },
+  { name: "attention_mask" data_type: TYPE_INT64 dims: [ -1 ] }
+]
+
+
+output [
+  { name: "last_hidden_state" data_type: TYPE_FP32 dims: [ -1, 1536 ] }
+]
+
+instance_group [ { kind: KIND_GPU, count: 1 } ]
+
+dynamic_batching {
+  preferred_batch_size: [ 8, 16, 32, 64 ]
+  max_queue_delay_microseconds: 2000
+}
+
+optimization {
+  execution_accelerators {
+    gpu_execution_accelerator: [
+      {
+        name: "tensorrt"
+        parameters: { key: "precision_mode"            value: "FP16" }
+        parameters: { key: "trt_engine_cache_enable"   value: "1" }
+        parameters: { key: "trt_engine_cache_path"     value: "trt_cache" }
+        parameters: { key: "trt_profile_min_shapes"    value: "input_ids:1x8,attention_mask:1x8" }
+        parameters: { key: "trt_profile_opt_shapes"    value: "input_ids:32x256,attention_mask:32x256" }
+        parameters: { key: "trt_profile_max_shapes"    value: "input_ids:128x512,attention_mask:128x512" }
+      },
+      {
+        name: "cuda"
+        parameters: { key: "use_ep_level_unified_stream" value: "1" }
+      }
+    ]
+  }
+}
