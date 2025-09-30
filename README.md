@@ -62,11 +62,24 @@ NVIDIA Triton Inference Server setup with Prometheus monitoring and Grafana dash
 curl -X POST http://localhost:8900/v2/models/frida_encoder/infer \
   -H "Content-Type: application/json" \
   -d '{
-    "inputs": [
-      {"name": "input_ids", "data": [1, 2, 3, 4, 5], "datatype": "INT64", "shape": [1, 5]},
-      {"name": "attention_mask", "data": [1, 1, 1, 1, 1], "datatype": "INT64", "shape": [1, 5]}
-    ]
-  }'
+  "inputs": [
+    {
+      "name": "input_ids",
+      "shape": [1, 8],
+      "datatype": "INT64",
+      "data": [[101, 42, 77, 512, 9, 3, 2, 1]]
+    },
+    {
+      "name": "attention_mask",
+      "shape": [1, 8],
+      "datatype": "INT64",
+      "data": [[1, 1, 1, 1, 1, 1, 1, 1]]
+    }
+  ],
+  "outputs": [
+    { "name": "last_hidden_state" }
+  ]
+}'
 ```
 
 ### Basic Commands
