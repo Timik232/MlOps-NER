@@ -310,7 +310,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "nv_gpu_memory_used_bytes{gpu_uuid=\"GPU-8fa5c565-1a73-e84d-d8d0-e77353e3df30\"} / 1024/1024/1024",
+          "expr": "nv_gpu_memory_used_bytes / 1024/1024/1024",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
