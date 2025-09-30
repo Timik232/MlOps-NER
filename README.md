@@ -25,7 +25,7 @@ NVIDIA Triton Inference Server setup with Prometheus monitoring and Grafana dash
 
 ## Quick Start
 
-1. **Add Onnx into frida-encode/1 directory**
+1. **Add Onnx into frida-encode/1 directory or run convert_frida and move onnx files**
 2. **Clone and Navigate**
    ```bash
    git clone https://github.com/Timik232/MlOps-NER.git
