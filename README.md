@@ -25,18 +25,19 @@ NVIDIA Triton Inference Server setup with Prometheus monitoring and Grafana dash
 
 ## Quick Start
 
-1. **Clone and Navigate**
+1. **Add Onnx into frida-encode/1 directory **
+2. **Clone and Navigate**
    ```bash
    git clone https://github.com/Timik232/MlOps-NER.git
    cd tritonserver
    ```
 
-2. **Start All Services**
+3. **Start All Services**
    ```bash
    docker-compose up -d
    ```
 
-3. **Access Services**
+4. **Access Services**
    - **Triton Server**: `http://localhost:8900` (HTTP), `localhost:8901` (gRPC)
    - **Grafana**: `http://localhost:3000` (admin/admin)
    - **Prometheus**: `http://localhost:9090`
